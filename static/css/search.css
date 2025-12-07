@@ -1,0 +1,8 @@
+    .pet-card-img {
+        width: 100%;
+        height: 230px;              /* altura uniforme */
+        object-fit: contain;        /* siempre muestra toda la imagen */
+        background-color: #f8f8f8;  /* fondo neutro para fotos pequeñas */
+        padding: 10px;
+        border-radius: 10px;
+    }

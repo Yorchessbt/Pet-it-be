@@ -1,0 +1,68 @@
+{% extends 'pets/base.html' %}
+{% load static %}
+
+{% block title %}Resultados de búsqueda{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/search.css' %}">
+
+<div class="container my-5">
+
+    <h2 class="mb-4">
+        Resultados para: <span class="text-primary">{{ query }}</span>
+    </h2>
+
+    {% if pets %}
+        <div class="row g-4">
+
+            {% for pet in pets %}
+                <div class="col-md-4">
+                    <div class="card shadow-sm border-0">
+
+                        {% if pet.image %}
+                            <img src="{{ pet.image.url }}" class="pet-card-img img-fluid" alt="{{ pet.name }}">
+                        {% else %}
+                            <img src="{% static 'img/noimage.png' %}" class="pet-card-img img-fluid" alt="Sin imagen">
+                        {% endif %}
+
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold mb-2">{{ pet.name }}</h5>
+
+                            <span class="badge bg-primary mb-2">
+                                {{ pet.especie.get_tipo_display }}
+                            </span>
+
+                            <p class="text-muted mb-2">
+                                Edad: {{ pet.edad }} año{{ pet.edad|pluralize }}
+                            </p>
+
+                            {% if pet.status == 'en_adopcion' %}
+                                <span class="badge bg-warning text-dark">En adopción</span>
+                            {% else %}
+                                <span class="badge bg-success">Adoptado</span>
+                            {% endif %}
+
+                            <hr>
+
+                            <a href="{% url 'adopt_me' pk=pet.pk %}" class="btn btn-outline-primary w-100">
+                                Ver más
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="alert alert-info mt-4">
+            No se encontraron mascotas que coincidan con <strong>{{ query }}</strong>.
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

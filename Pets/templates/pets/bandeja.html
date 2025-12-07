@@ -1,0 +1,53 @@
+{% extends 'pets/base.html' %}
+{% load static %}
+
+{% block title %}Bandeja - Solicitudes Recibidas{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+    <h2 class="mb-4"> Solicitudes que recibiste</h2>
+
+    <p>
+        <a href="{% url 'bandeja_respuesta' %}" class="btn btn-outline-primary">
+            Ver solicitudes que tú enviaste →
+        </a>
+    </p>
+
+    {% if solicitudes %}
+        <div class="list-group">
+            {% for s in solicitudes %}
+                <div class="list-group-item py-3">
+                    <h5>{{ s.perfil.user.username }} quiere adoptar a <strong>{{ s.pet.name }}</strong></h5>
+                    <p><strong>Mensaje:</strong> {{ s.mensaje }}</p>
+                    <p><strong>Fecha:</strong> {{ s.fecha }}</p>
+
+                    {% if s.estado_solicitud == 'pendiente' %}
+                        <p class="text-warning fw-bold">⏳ Pendiente</p>
+                    {% elif s.estado_solicitud == 'aceptada' %}
+                        <p class="text-success fw-bold">✔ Aceptada</p>
+                    {% elif s.estado_solicitud == 'rechazada' %}
+                        <p class="text-danger fw-bold">✘ Rechazada</p>
+                    {% endif %}
+
+                    {% if s.estado_solicitud == 'pendiente' %}
+                    <form method="POST" action="{% url 'respuesta' s.pk %}" class="mt-3">
+                        {% csrf_token %}
+
+                        <button name="accion" value="aceptar" class="btn btn-success btn-sm">
+                            Aceptar
+                        </button>
+
+                        <button name="accion" value="rechazar" class="btn btn-danger btn-sm">
+                            Rechazar
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">No tienes solicitudes por ahora.</p>
+    {% endif %}
+</div>
+{% endblock %}

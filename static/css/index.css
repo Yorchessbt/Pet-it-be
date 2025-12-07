@@ -1,0 +1,44 @@
+/* CARRUSEL */
+  .carousel-item img {
+    height: 80vh;
+    object-fit: cover;
+  }
+  @media (max-width: 768px) {
+    .carousel-item img { height: 60vh; }
+  }
+  .carousel-caption {
+    background: rgba(0,0,0,0.4);
+    padding: 15px 30px;
+    border-radius: 12px;
+  }
+
+  /* TARJETAS CIRCULARES */
+  .pet-circle { padding: 20px; }
+  .circle-img {
+    width: 240px;
+    height: 240px;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 10px solid #ff6b6b;
+    box-shadow: 0 15px 40px rgba(255,107,107,0.3);
+  }
+  .circle-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .btn-circle {
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 38px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: 0.3s;
+  }
+  .btn-circle:hover {
+    background: #ff4444;
+    transform: scale(1.08);
+  }

@@ -1,0 +1,18 @@
+{% extends 'pets/base.html' %}
+{% load static %}
+
+{% block title %}Editar {{ pet_edit.name }}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4"> Editar mascota</h2>
+
+    <form method="post" enctype="multipart/form-data" class="card p-4 shadow">
+        {% csrf_token %}
+        {{ petform.as_p }}
+
+        <button type="submit" class="btn btn-primary mt-3">Guardar cambios</button>
+        <a href="{% url 'adopt_me' pet.pk %}" class="btn btn-secondary mt-3 ms-2">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
